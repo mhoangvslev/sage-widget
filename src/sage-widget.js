@@ -71,7 +71,7 @@ export default function SageWidget (voIDContents, defaultServer, defaultQuery, d
   return {
     oninit: function () {
       const voIDs = voIDContents.map(d => {
-        return {url: d.url, content: formatVoID(d.url, d.content)}
+        return {url: d.url, content: formatVoID(`${d.url}/void`, d.content)}
       })
       data.datasets = voIDs.map(v => {
         return {url: v.url, datasets: v.content.urls}
