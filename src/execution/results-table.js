@@ -26,6 +26,8 @@ SOFTWARE.
 
 import m from 'mithril'
 import { map } from 'lodash'
+import { saveAs } from 'file-saver'
+const fs = require('fs')
 
 const PAGE_SIZE = 10
 
@@ -89,7 +91,19 @@ export default function ResultsTable (state) {
           (state.pageNum < lastPage(state.results)) ? m('button', {class: 'btn btn-primary', onclick: () => { state.pageNum += 1 }}, m('i', {class: 'fas fa-angle-right'})) : m('button', {class: 'btn btn-secondary disabled'}, m('i', {class: 'fas fa-angle-right'})),
           ' ',
           // go to last page
-          (state.pageNum < lastPage(state.results)) ? m('button', {class: 'btn btn-primary', onclick: () => { state.pageNum = lastPage(state.results) }}, m('i', {class: 'fas fa-angle-double-right'})) : m('button', {class: 'btn btn-secondary disabled'}, m('i', {class: 'fas fa-angle-double-right'}))
+          (state.pageNum < lastPage(state.results)) ? m('button', {class: 'btn btn-primary', onclick: () => { state.pageNum = lastPage(state.results) }}, m('i', {class: 'fas fa-angle-double-right'})) : m('button', {class: 'btn btn-secondary disabled'}, m('i', {class: 'fas fa-angle-double-right'})),
+
+          // Download results
+          m('button', 
+            {
+              class: 'btn btn-outline-success', 
+              onclick: (req, res) => { 
+                const str = JSON.stringify(state.results);
+                const bytes = new TextEncoder().encode(str);
+                const blob = new Blob([bytes], {type: "application/json;charset=utf-8"});
+                saveAs(blob, "results.json")
+              }
+            }, [ m('i', {class: 'fas fa-download'}), ' Download JSON'])
         ]) : null
       ])
     }

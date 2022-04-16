@@ -29,10 +29,11 @@
   "homepage": "https://github.com/sage-org/sage-client#readme",
   "dependencies": {
     "codeflask": "^1.4.0",
+    "file-saver": "^2.0.5",
     "graphql-to-sparql": "^1.4.1",
     "mithril": "^1.1.6",
     "protobufjs": "^6.8.8",
-    "sage-client": "^2.1.1",
+    "sage-client": "file:../sage-client",
     "yasgui-yasqe": "^2.11.22"
   },
   "devDependencies": {
